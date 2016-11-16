@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>第十、十一周作业</title>
+		<style type="text/css">
+		div{
+			margin-top: 10px;
+			margin-left: 10px;
+		}
+		div input{
+			width: 30px;
+			height: 20px;
+			font-size: 20px;
+		}
+		.OK{
+			float: left;
+			width: 100%;
+		}
+		.OK div{
+			float: left;
+			width: 30px;
+			height: 20px;
+			color: #fff;
+			background: red;
+			font-weight: 600;
+			text-align: center;
+			cursor: pointer;
+		}
+		.input{
+			float: left;
+			margin-top: 20px;
+		}
+		.rebox{
+			display: none;
+			float: left;
+		}
+		.re{
+			margin-top: 10px;
+			margin-left: 20px;
+			width: 50px;
+			height: 20px;
+			font-size: 15px;
+			text-align: center;
+		}
+		#sub{
+			width: 50px;
+			height: 20px;
+			font-size: 15px;
+			text-align: center;
+		}
+		.dcreatDive{
+			display: none!important;
+		}
+		#note{
+			position: absolute;
+			right: 400px;
+			top: 50px;
+		}
+		#good{
+			float: left;
+			margin-right: 100px;
+			color: #000;
+		}
+		#bad{
+			float: left;
+			color: rgb(195,193,198);
+		}
+		</style>
+		<script type="text/javascript" src="jquery-2.2.0.min.js"></script>
+	</head>
+	<body>
+		<input type="text" id="Enter" placehoder="请输入">
+		<input type="button" id="Left-in" value="左侧入">
+		<input type="button" id="Right-in" value="右侧入">
+		<input type="button" id="Left-out" value="左侧出">
+		<input type="button" id="Right-out" value="右侧出">
+		<div class="inputnub">
+			<input class="enternub" type="text" value="10" name="1">
+			<input class="enternub" type="text" value="3">
+			<input class="enternub" type="text" value="7">
+			<input class="enternub" type="text" value="12">
+			<input class="enternub" type="text" value="11">
+			<input class="enternub" type="text" value="30">
+			<input id="sub" type="button" name="Right-out" value="确认">
+		</div>
+		<div class="OK">
+			<div class="creatDiv dcreatDive"></div>
+		</div>
+		<div class="rebox">
+			<input class="re" type="button" value="重置" onclick="re()">
+		</div>
+		<div id="note">
+			<div id="good">
+				<div>功能：</div>
+				<div>1.可自己输入数字</div>
+				<div>2.题目给出的所有要求</div>
+				
+			</div>
+			<div id="bad">
+				<div>DE功能：</div>
+				<div>1.界面简陋</div>
+				<div>2.感觉算法太复杂(自以为)</div>
+
+			</div>
+		</div>
+
+		<script type="text/javascript">
+			var a = new Array(5);		//存放数字的数组
+			var b = new Array(5);
+			var c = new Array(5);
+			var panDuanA,panDuanB,panDuanC = 0;
+			// 创造数字
+			window.onload = function enternubmer(){
+				var write=document.querySelector("#sub")
+				write.addEventListener
+				(
+					'click',
+					function()
+					{
+						for (var i = 0; i <= 5; i++) {
+							var inputs = document.querySelectorAll(".enternub")[i];	
+							a[i] = inputs.value;
+							console.log("a["+i+"] = "+a[i]);
+						};
+						for (var i = 0; i <= 5; i++) {
+							if (a[i] == "") {
+								panDuanA = 1;
+							};
+						};
+						if (panDuanA == 1) {
+							alert("请填写数字输完再点我")
+						}else{
+							panDuanB = 0;
+							for (var i = 0; i <= 5; i++) {
+								var divp = document.createElement("div");
+								//给创建标签赋ID值
+								divp.setAttribute("onclick","clickDiv(this)"); 
+								 //给创建标签赋CLASS值
+								divp.className = i;
+								var node = document.createTextNode(a[i]+"  ")
+								divp.appendChild(node);
+								var OK = document.querySelector(".OK");
+								OK.appendChild(divp);
+								document.querySelector(".inputnub").style.display="none";
+								document.querySelector(".rebox").style.display="block";
+							};
+						}
+					},
+					false
+				);
+			}
+
+			// 左侧入
+			var Left_in=document.querySelector("#Left-in")
+			Left_in.addEventListener(
+				'click',
+				function()
+				{
+					for (var i = 0; i <= 5; i++) {
+							if (a[i] == null) {
+								console.log("a["+i+"] = "+a[i])
+								panDuanB = 1;
+							};
+						};
+					if (panDuanB == 1) {
+						alert("请点击【确认】后再来点我")
+					}else {
+						var LRinputinValue;
+						for (var i = 0; i <= 5; i++) {
+							if (i == 0) {
+								LRinputinValue = a[i];
+								console.log(LRinputinValue)
+							}else if (i != 0) {
+								LRinputinValue = LRinputinValue+"  "+a[i];
+								console.log(LRinputinValue)
+							};
+						};
+						document.querySelector("#Enter").value = LRinputinValue;
+						document.querySelector("#Left-in").disabled = "disabled"; 
+						document.querySelector("#Right-in").disabled = "disabled"; 
+						for (var i = 0; i <= 5; i++) {
+							b[i] = a[i];
+							console.log("b["+i+"] = "+b[i])
+						};
+						for (var i = 0; i <= 5; i++) {
+							c[i] = b[i];
+							console.log("c["+i+"] = "+c[i])
+						}
+					}
+				},
+				false
+			);
+
+			// 右侧入
+			var Left_in=document.querySelector("#Right-in")
+			Left_in.addEventListener(
+				'click',
+				function()
+				{
+					for (var i = 0; i <= 5; i++) {
+							if (a[i] == null) {
+								console.log("a["+i+"] = "+a[i])
+								panDuanB = 1;
+							};
+						};
+					if (panDuanB == 1) {
+						alert("请点击【确认】后再来点我")
+					}else {
+						var RinputinValue;
+						for (var i = 5; i >= 0; i--) {
+							if (i == 5) {
+								RinputinValue = a[i];
+								console.log(RinputinValue)
+							}else if (i != 5) {
+								RinputinValue = RinputinValue+"  "+a[i];
+								console.log(RinputinValue)
+							};
+						};
+						document.querySelector("#Enter").value = RinputinValue;
+						document.querySelector("#Left-in").disabled = "disabled"; 
+						document.querySelector("#Right-in").disabled = "disabled"; 
+						for (var i = 5,m = 0; i >= 0; i--,m++) {
+							b[m] = a[i];
+							console.log("b["+m+"] = "+b[m]);
+						};
+						for (var i = 5,m = 0; i >= 0; i--,m++) {
+							c[m] = b[i];
+							console.log("c["+m+"] = "+c[m])
+						}
+					}
+				},
+				false
+			);
+
+			// 左侧出
+			var Left_in=document.querySelector("#Left-out")
+			Left_in.addEventListener(
+				'click',
+				function()
+				{
+					var beforeOut = document.querySelector("#Enter").value
+					console.log(beforeOut);
+					for(var n = 0; n <= 5;n++){
+						if (b[n] == " ") {
+							panDuanC ++;
+						};
+					}
+					console.log("panDuanC = "+panDuanC);
+					if (beforeOut == "") {
+						alert("你数都没有就输出？ EXCUSE ME？")
+					} else if(panDuanC > 15){
+						alert("已经没有数了混蛋")
+					} else{
+						for(var i = 0,m = 5; i<=5; i++,m--)
+						{
+							console.log("b[] = "+b[0]+" "+b[1]+" "+b[2]+" "+b[3]+" "+b[4]+" "+b[5]);
+							console.log("c[] = "+c[0]+" "+c[1]+" "+c[2]+" "+c[3]+" "+c[4]+" "+c[5]);
+							if (b[i] != " ") {
+								alert("左侧出数字：  "+b[i]);
+								if (b[i] == c[i]) {
+									c[i] = " ";
+								}else{
+									c[m] = " ";
+								};
+								b[i] = " ";
+								
+								console.log("执行后"+i+"="+b[i]);
+								var LinputinOutValue;
+								var LinputinOutValueC;
+								LinputinOutValue = b[0]+" "+b[1]+" "+b[2]+" "+b[3]+" "+b[4]+" "+b[5]
+								LinputinOutValueC = c[0]+" "+c[1]+" "+c[2]+" "+c[3]+" "+c[4]+" "+c[5]
+								/*for (var m = 0; m >= 5; m++) {
+									if (m == 0) {
+										LinputinOutValue = a[m];
+										console.log("左侧出数字后a["+m+"] = "+LinputinOutValue)
+									}else if (m != 0) {
+										LinputinOutValue = LinputinOutValue+"  "+a[m];
+										console.log("左侧出数字后a["+m+"] = "+LinputinOutValue)
+									}	
+								};*/
+								console.log(LinputinOutValue);
+								console.log(LinputinOutValueC);
+								document.querySelector("#Enter").value = LinputinOutValue;
+								break;
+							};
+						}
+					};
+				},
+				false
+			);
+
+			// 右侧出
+			var Left_in=document.querySelector("#Right-out")
+			Left_in.addEventListener(
+				'click',
+				function()
+				{
+					var beforeOut = document.querySelector("#Enter").value
+					console.log(beforeOut);
+					for(var n = 0; n <= 5;n++){
+						if (b[n] == " ") {
+							panDuanC ++;
+						};
+					}
+					console.log("panDuanC = "+panDuanC);
+					if (beforeOut == "") {
+						alert("你数都没有就输出？ EXCUSE ME？")
+					} else if(panDuanC > 15){
+						alert("已经没有数了混蛋")
+					} else{
+						for(var i = 5,m = 5; i >= 0; i--,m--)
+						{
+							console.log("b[] = "+b[0]+" "+b[1]+" "+b[2]+" "+b[3]+" "+b[4]+" "+b[5]);
+							console.log("c[] = "+c[0]+" "+c[1]+" "+c[2]+" "+c[3]+" "+c[4]+" "+c[5]);
+							if (b[i] != " ") {
+								alert("右侧出数字：  "+b[i]);
+								
+								if (b[i] == c[i]) {
+									c[i] = " ";
+								}else{
+									c[m] = " ";
+								};
+								b[i] = " ";
+								console.log("执行后"+i+"="+b[i]);
+								var LinputinOutValue;
+								var LinputinOutValueC;
+								LinputinOutValue = b[0]+" "+b[1]+" "+b[2]+" "+b[3]+" "+b[4]+" "+b[5];
+								LinputinOutValueC = c[0]+" "+c[1]+" "+c[2]+" "+c[3]+" "+c[4]+" "+c[5];
+								console.log(LinputinOutValue);
+								console.log(LinputinOutValueC);
+								document.querySelector("#Enter").value = LinputinOutValue;
+								break;
+							};
+						}
+					};
+				},
+				false
+			);
+
+			// 点击删除
+			function clickDiv(cDiv){
+				var onclickDiv = cDiv.getAttribute("class");
+				console.log("点击的元素是:"+onclickDiv);
+				var beforeOut = document.querySelector("#Enter").value;
+				console.log("c[onclickDiv] = "+c[onclickDiv])
+				if (beforeOut == "") {
+					alert("你没添加数子就删除？ EXCUSE ME？")
+				}else if (c[onclickDiv] == " ") {
+					alert("这个元素已经被删除了，别再点了")
+				}else {
+					if (b[onclickDiv] == c[onclickDiv]) {
+						alert("已经删除了  "+c[onclickDiv])
+						c[onclickDiv] = " ";
+						b[onclickDiv] = " ";
+						var LinputinOutValue;
+						var LinputinOutValueC;
+						LinputinOutValue = b[0]+" "+b[1]+" "+b[2]+" "+b[3]+" "+b[4]+" "+b[5];
+						LinputinOutValueC = c[0]+" "+c[1]+" "+c[2]+" "+c[3]+" "+c[4]+" "+c[5];
+						console.log(LinputinOutValue);
+						console.log(LinputinOutValueC);
+						document.querySelector("#Enter").value = LinputinOutValue;
+					}else{
+						c[onclickDiv] = " ";
+						for(var i = 0,m = 5; i <= onclickDiv; i++,m--){
+							b[m] = c[i];
+						}
+						var LinputinOutValue;
+						var LinputinOutValueC;
+						LinputinOutValue = b[0]+" "+b[1]+" "+b[2]+" "+b[3]+" "+b[4]+" "+b[5];
+						LinputinOutValueC = c[0]+" "+c[1]+" "+c[2]+" "+c[3]+" "+c[4]+" "+c[5];
+						console.log("逆序点击后,b[] = "+LinputinOutValue);
+						console.log("逆序点击后,c[] = "+LinputinOutValueC);
+						document.querySelector("#Enter").value = LinputinOutValue;
+					};
+				};;
+			}
+
+			// 重置按钮
+			function re(){
+				location.reload()
+			}
+
+			
+		</script>
+	</body>
+</html>
